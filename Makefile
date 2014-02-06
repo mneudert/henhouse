@@ -1,28 +1,44 @@
-OBJ_DIR = _obj
+OBJ_DIR := _obj
 
-SRCS = $(shell find src -name "*.d")
-OBJS = $(patsubst src/%.d, $(OBJ_DIR)/%.o, $(SRCS))
+SRCS := $(shell find src -name "*.d")
+OBJS := $(patsubst src/%.d, $(OBJ_DIR)/%.o, $(SRCS))
 
-TARGET = henhouse
+TARGET := henhouse
+
 
 $(OBJ_DIR)/%.o: src/%.d
 	@echo "  DMD  src/$*.d"
 	@mkdir -p $(dir $@)
-	@dmd -c -w -of$@ src/$*.d
+	@dmd $(DMD_LIB_FLAGS) -of$@ src/$*.d
 
-$(TARGET): $(OBJS)
+$(TARGET): clean $(OBJS)
 	@echo "  LD   $@"
-	@dmd -of$@ $(OBJS)
+	@rm -f $@
+	@dmd $(DMD_FLAGS) -of$@ $(OBJS)
+	@echo "> OK <"
+
+$(TARGET)_test: clean $(OBJS)
+	@echo "  LD   $@"
+	@rm -f $@
+	@dmd $(DMD_FLAGS) -of$@ $(OBJS)
 	@echo "> OK <"
 
 
-all: $(TARGET)
-
 clean:
-	@rm -rf $(TARGET) $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
-run: $(TARGET)
+default: DMD_FLAGS :=
+default: DMD_LIB_FLAGS := -c -w
+default: $(TARGET)
+
+run: default
 	@./$(TARGET)
 
+test: DMD_FLAGS := -unittest
+test: DMD_LIB_FLAGS := -c -w -unittest
+test: $(TARGET)_test
+	@./$(TARGET)_test
+	@rm $(TARGET)_test
 
-.PHONY: all clean run
+.PHONY: clean default run test
+.DEFAULT_GOAL := default

@@ -6,29 +6,37 @@ import file = std.file  : exists, readText;
 import io   = std.stdio : writefln, writeln;
 import uni  = std.uni   : isAlpha, isLower, isUpper, isWhite;
 
-
-void main(char[][] args)
+version(unittest)
 {
-    writeln("Henhouse\n");
-
-    if (3 != args.length) {
-        printUsage(args);
-        stdlib.exit(1);
+    void main() {
+        writeln("All Tests Successful!");
     }
+}
+else
+{
+    void main(char[][] args)
+    {
+        writeln("Henhouse\n");
 
-    if (!file.exists(args[1])) {
-        io.writefln("input file not found: %s", args[1]);
-        stdlib.exit(1);
+        if (3 != args.length) {
+            printUsage(args);
+            stdlib.exit(1);
+        }
+
+        if (!file.exists(args[1])) {
+            io.writefln("input file not found: %s", args[1]);
+            stdlib.exit(1);
+        }
+
+        if (file.exists(args[2])) {
+            io.writefln("output file already exists: %s", args[2]);
+            stdlib.exit(1);
+        }
+
+        io.writeln("converting to chickens...");
+        convert(args[1], args[2]);
+        io.writeln("done.");
     }
-
-    if (file.exists(args[2])) {
-        io.writefln("output file already exists: %s", args[2]);
-        stdlib.exit(1);
-    }
-
-    io.writeln("converting to chickens...");
-    convert(args[1], args[2]);
-    io.writeln("done.");
 }
 
 void convert(char[] infile, char[] outfile)
