@@ -3,9 +3,8 @@ module henhouse.file;
 import file   = std.file;
 import io     = std.stdio;
 import stdlib = std.c.stdlib;
-import uni    = std.uni;
 
-import hhc = henhouse.converter;
+import hhtf = henhouse.translator.factory;
 
 
 void translate(string infile, string outfile)
@@ -27,41 +26,8 @@ void translate(string infile, string outfile)
 
 void translateFile(string infile, string outfile)
 {
-    string original = cast(string) file.readText(infile);
-    string chicken  = translateText(original);
+    auto   trans   = hhtf.getTranslator(infile);
+    string chicken = trans.translateFile(infile);
 
     file.append(outfile, chicken);
-}
-
-string translateText(string original)
-{
-    char   current;
-    string chicken;
-    string buffer;
-
-    for (int i = 0; i < original.length; i++) {
-        current = original[i];
-
-        if (uni.isAlpha(current)) {
-            buffer ~= current;
-            continue;
-        }
-
-        if (0 < buffer.length) {
-            chicken ~= hhc.wordToChicken(buffer);
-            buffer   = "";
-        }
-
-        chicken ~= current;
-    }
-
-    return chicken;
-}
-
-unittest
-{
-    string original = "Much chicken! So convert!";
-    string chicken  = "Chicken chicken! Chicken chicken!";
-
-    assert(chicken == translateText(original));
 }
