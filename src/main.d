@@ -1,22 +1,25 @@
 module main;
 
-import stdlib = std.c.stdlib : exit;
+import stdlib = std.c.stdlib;
 
-import file = std.file  : exists, readText;
-import io   = std.stdio : writefln, writeln;
-import uni  = std.uni   : isAlpha, isLower, isUpper, isWhite;
+import file = std.file;
+import io   = std.stdio;
+import uni  = std.uni;
+
+import hhc = henhouse.converter;
+
 
 version(unittest)
 {
     void main() {
-        writeln("All Tests Successful!");
+        io.writeln("All Tests Successful!");
     }
 }
 else
 {
-    void main(char[][] args)
+    void main(string[] args)
     {
-        writeln("Henhouse\n");
+        io.writeln("Henhouse\n");
 
         if (3 != args.length) {
             printUsage(args);
@@ -39,13 +42,13 @@ else
     }
 }
 
-void convert(char[] infile, char[] outfile)
+void convert(string infile, string outfile)
 {
-    char[] original = cast(char[]) file.readText(infile);
+    string original = cast(string) file.readText(infile);
 
     char   current;
-    char[] chicken;
-    char[] buffer;
+    string chicken;
+    string buffer;
 
     for (int i = 0; i < original.length; i++) {
         current = original[i];
@@ -56,8 +59,8 @@ void convert(char[] infile, char[] outfile)
         }
 
         if (0 < buffer.length) {
-            chicken ~= toChicken(buffer);
-            buffer   = "".dup;
+            chicken ~= hhc.wordToChicken(buffer);
+            buffer   = "";
         }
 
         chicken ~= current;
@@ -66,46 +69,7 @@ void convert(char[] infile, char[] outfile)
     file.append(outfile, chicken);
 }
 
-void printUsage(char[][] args)
+void printUsage(string[] args)
 {
     io.writefln("Usage: %s INPUT_FILE OUTPUT_FILE", args[0]);
-}
-
-char[] toChicken(char[] original)
-{
-    char[] chicken;
-
-    for (int i = 0; i < original.length; i++) {
-        if (uni.isLower(original[i])) {
-            chicken ~= "chicken".dup;
-
-            while ((i + 1 < original.length) && uni.isLower(original[i + 1])) {
-                i++;
-            }
-
-            continue;
-        }
-
-        if (uni.isUpper(original[i])) {
-            if ((i + 1 == original.length) || uni.isLower(original[i + 1])) {
-                chicken ~= "Chicken".dup;
-
-                while ((i + 1 < original.length) && uni.isLower(original[i + 1])) {
-                    i++;
-                }
-
-                continue;
-            }
-
-            if ((i + 1 == original.length) || uni.isUpper(original[i + 1])) {
-                chicken ~= "CHICKEN".dup;
-
-                while ((i + 1 < original.length) && uni.isUpper(original[i + 1])) {
-                    i++;
-                }
-            }
-        }
-    }
-
-    return chicken;
 }

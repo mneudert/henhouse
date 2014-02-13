@@ -3,6 +3,9 @@ OBJ_DIR := _obj
 SRCS := $(shell find src -name "*.d")
 OBJS := $(patsubst src/%.d, $(OBJ_DIR)/%.o, $(SRCS))
 
+DMD_FLAGS     :=
+DMD_LIB_FLAGS := -Isrc -c -w
+
 TARGET := henhouse
 
 
@@ -27,15 +30,13 @@ $(TARGET)_test: clean $(OBJS)
 clean:
 	@rm -rf $(OBJ_DIR)
 
-default: DMD_FLAGS :=
-default: DMD_LIB_FLAGS := -c -w
 default: $(TARGET)
 
 run: default
 	@./$(TARGET)
 
-test: DMD_FLAGS := -unittest
-test: DMD_LIB_FLAGS := -c -w -unittest
+test: DMD_FLAGS := $(DMD_FLAGS) -unittest
+test: DMD_LIB_FLAGS := $(DMD_LIB_FLAGS) -unittest
 test: $(TARGET)_test
 	@./$(TARGET)_test
 	@rm $(TARGET)_test
