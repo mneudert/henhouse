@@ -2,4 +2,4 @@
 
 Chicken chicken chicken chicken chicken chicken chicken chicken chicken.
 
-[http://isotropic.org/papers/chicken.pdf](Chicken!)
+[Chicken!](http://isotropic.org/papers/chicken.pdf)
