@@ -32,14 +32,11 @@ clean:
 
 default: $(TARGET)
 
-run: default
-	@./$(TARGET)
-
 test: DMD_FLAGS := $(DMD_FLAGS) -unittest
 test: DMD_LIB_FLAGS := $(DMD_LIB_FLAGS) -unittest
 test: $(TARGET)_test
 	@./$(TARGET)_test
 	@rm $(TARGET)_test
 
-.PHONY: clean default run test
+.PHONY: clean default test
 .DEFAULT_GOAL := default
