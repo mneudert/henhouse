@@ -1,29 +1,43 @@
 OBJ_DIR := _obj
 
+ifneq (, $(shell which dmd))
+	COMP          := dmd
+	COMP_LOG      := DMD
+	FLAG_OUTPUT   := -of
+	FLAG_UNITTEST := -unittest
+else ifneq (, $(shell which gdc))
+	COMP          := gdc
+	COMP_LOG      := GDC
+	FLAG_OUTPUT   := -o
+	FLAG_UNITTEST := -funittest
+else
+	$(error No usable compiler found. Tried: dmd, gdc)
+endif
+
 SRCS := $(shell find src -name "*.d")
 OBJS := $(patsubst src/%.d, $(OBJ_DIR)/%.o, $(SRCS))
 
-DMD_FLAGS     :=
-DMD_LIB_FLAGS := -Isrc -c -w
+COMP_FLAGS     :=
+COMP_LIB_FLAGS := -Isrc -c -w
 
 TARGET := henhouse
 
 
 $(OBJ_DIR)/%.o: src/%.d
-	@echo "  DMD  src/$*.d"
+	@echo "  $(COMP_LOG)  src/$*.d"
 	@mkdir -p $(dir $@)
-	@dmd $(DMD_LIB_FLAGS) -of$@ src/$*.d
+	@$(COMP) $(COMP_LIB_FLAGS) $(FLAG_OUTPUT)$@ src/$*.d
 
 $(TARGET): clean $(OBJS)
 	@echo "  LD   $@"
 	@rm -f $@
-	@dmd $(DMD_FLAGS) -of$@ $(OBJS)
+	@$(COMP) $(COMP_FLAGS) $(FLAG_OUTPUT)$@ $(OBJS)
 	@echo "> OK <"
 
 $(TARGET)_test: clean $(OBJS)
 	@echo "  LD   $@"
 	@rm -f $@
-	@dmd $(DMD_FLAGS) -of$@ $(OBJS)
+	@$(COMP) $(COMP_FLAGS) $(FLAG_OUTPUT)$@ $(OBJS)
 	@echo "> OK <"
 
 
@@ -32,8 +46,8 @@ clean:
 
 default: $(TARGET)
 
-test: DMD_FLAGS := $(DMD_FLAGS) -unittest
-test: DMD_LIB_FLAGS := $(DMD_LIB_FLAGS) -unittest
+test: COMP_FLAGS     := $(COMP_FLAGS) $(FLAG_UNITTEST)
+test: COMP_LIB_FLAGS := $(COMP_LIB_FLAGS) $(FLAG_UNITTEST)
 test: $(TARGET)_test
 	@./$(TARGET)_test
 	@rm $(TARGET)_test
