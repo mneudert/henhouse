@@ -1,7 +1,7 @@
 module main;
 
 import io     = std.stdio;
-import stdlib = std.c.stdlib;
+import stdlib = core.stdc.stdlib;
 
 import hhf = henhouse.file;
 
