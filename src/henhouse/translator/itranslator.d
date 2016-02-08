@@ -1,4 +1,4 @@
-module hehouse.translator.itranslator;
+module henhouse.translator.itranslator;
 
 
 interface ITranslator
