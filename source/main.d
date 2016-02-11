@@ -11,7 +11,7 @@ void main(string[] args)
 
     if (3 != args.length) {
         printUsage(args);
-        stdlib.exit(1);
+        stdlib.exit((1 == args.length) ? 0 : 1);
     }
 
     hhf.translate(args[1], args[2]);
