@@ -5,26 +5,16 @@ import stdlib = core.stdc.stdlib;
 
 import hhf = henhouse.file;
 
-
-version(unittest)
+void main(string[] args)
 {
-    void main() {
-        io.writeln("All Tests Successful!");
-    }
-}
-else
-{
-    void main(string[] args)
-    {
-        io.writeln("Henhouse\n");
+    io.writeln("Henhouse\n");
 
-        if (3 != args.length) {
-            printUsage(args);
-            stdlib.exit(1);
-        }
-
-        hhf.translate(args[1], args[2]);
+    if (3 != args.length) {
+        printUsage(args);
+        stdlib.exit(1);
     }
+
+    hhf.translate(args[1], args[2]);
 }
 
 void printUsage(string[] args)
