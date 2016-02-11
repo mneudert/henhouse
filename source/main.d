@@ -7,8 +7,6 @@ import hhf = henhouse.file;
 
 void main(string[] args)
 {
-    io.writeln("Henhouse\n");
-
     if (3 != args.length) {
         printUsage(args);
         stdlib.exit((1 == args.length) ? 0 : 1);
@@ -19,5 +17,6 @@ void main(string[] args)
 
 void printUsage(string[] args)
 {
+    io.writeln("Henhouse\n");
     io.writefln("Usage: %s INPUT_FILE OUTPUT_FILE", args[0]);
 }
