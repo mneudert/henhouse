@@ -1,1 +1,5 @@
 language: d
+
+install: wget -q -O - "http://bit.ly/Doveralls" | bash
+script: dub test -b unittest-cov
+after_success: ./doveralls
