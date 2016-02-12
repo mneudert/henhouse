@@ -1,4 +1,6 @@
 name "henhouse"
 description "Converts your favorite text to a bunch of chickens."
-copyright "Copyright © 2014-, Marc Neudert"
 authors "Marc Neudert"
+
+copyright "Copyright © 2014-, Marc Neudert"
+license "MIT"
