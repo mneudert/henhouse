@@ -5,6 +5,13 @@ import stdlib = core.stdc.stdlib;
 
 import hhf = henhouse.file;
 
+
+/**
+ * Application entry point.
+ *
+ * Params:
+ *      args    command line arguments
+ */
 void main(string[] args)
 {
     if (3 != args.length) {
@@ -15,6 +22,12 @@ void main(string[] args)
     hhf.translate(args[1], args[2]);
 }
 
+/**
+ * Prints cli usage information.
+ *
+ * Params:
+ *      args    command line arguments
+ */
 void printUsage(string[] args)
 {
     io.writeln("Henhouse\n");

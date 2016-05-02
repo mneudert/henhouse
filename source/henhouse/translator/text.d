@@ -7,6 +7,9 @@ import hhc   = henhouse.converter;
 import hht_i = henhouse.translator.itranslator;
 
 
+/**
+ * Plaintext Translator.
+ */
 class Translator : hht_i.ITranslator
 {
     string translateFile(string filename)

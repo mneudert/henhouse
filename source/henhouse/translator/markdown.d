@@ -7,6 +7,9 @@ import hhc   = henhouse.converter;
 import hht_t = henhouse.translator.text;
 
 
+/**
+ * Markdown Translator.
+ */
 class Translator : hht_t.Translator
 {
     override string translateText(string original)

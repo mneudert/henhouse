@@ -3,6 +3,15 @@ module henhouse.converter;
 import uni = std.uni;
 
 
+/**
+ * Converts a single word to its "chicken" representation.
+ *
+ * Params:
+ *      original    string to convert
+ *
+ * Returns:
+ *      converted string
+ */
 string wordToChicken(string original)
 {
     string chicken;

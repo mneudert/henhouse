@@ -9,6 +9,14 @@ import hht_m = henhouse.translator.markdown;
 import hht_t = henhouse.translator.text;
 
 
+/**
+ * Returns a translator depending on a file extension.
+ *
+ * Params:
+ *      filename    the file to be converted
+ * Returns:
+ *      suitable translator instance
+ */
 hht_i.ITranslator getTranslator(string filename)
 {
     switch (str.toLower(path.extension(filename)))

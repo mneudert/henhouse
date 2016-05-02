@@ -7,6 +7,15 @@ import stdlib = core.stdc.stdlib;
 import hhtf = henhouse.translator.factory;
 
 
+/**
+ * Translates a file.
+ *
+ * Wraps translateFile/2 with error handling and process output.
+ *
+ * Params:
+ *      infile      file to read from
+ *      outfile     file to write to
+ */
 void translate(string infile, string outfile)
 {
     if (!file.exists(infile)) {
@@ -24,6 +33,13 @@ void translate(string infile, string outfile)
     io.writeln("done.");
 }
 
+/**
+ * Translates a file.
+ *
+ * Params:
+ *      infile      file to read from
+ *      outfile     file to write to
+ */
 void translateFile(string infile, string outfile)
 {
     auto   trans   = hhtf.getTranslator(infile);
