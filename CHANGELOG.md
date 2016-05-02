@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.2.dev
+## v0.0.2 (2016-05-02)
 
 - Enhancements
   - converts HTML files (naive parsing)
