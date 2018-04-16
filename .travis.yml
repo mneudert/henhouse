@@ -1,5 +1,5 @@
 language: d
-sudo:     false
+sudo: false
 
 script: dub test -b unittest-cov
 
