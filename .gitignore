@@ -1,4 +1,4 @@
 .dub/
-/__test__library__
-/dub_test_*
+
 /henhouse
+/henhouse-test-library
