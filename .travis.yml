@@ -3,6 +3,9 @@ sudo: false
 
 script: dub test -b unittest-cov
 
-after_success:
-  - dub fetch doveralls
-  - dub run doveralls
+# doveralls is currently broken with the latest dub
+# see: https://github.com/ColdenCullen/doveralls/pull/21
+# 
+#after_success:
+#  - dub fetch doveralls
+#  - dub run doveralls
