@@ -1,4 +1,5 @@
 .dub/
 
+/*.lst
 /henhouse
 /henhouse-test-library
