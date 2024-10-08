@@ -1,8 +1,0 @@
-language: d
-sudo: false
-
-script: dub test -b unittest-cov
-
-after_success:
-  - dub fetch doveralls
-  - dub run doveralls
