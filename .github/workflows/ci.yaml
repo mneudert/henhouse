@@ -19,3 +19,11 @@ jobs:
 
       - run: yamllint .
         working-directory: .github
+
+  test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dlang-community/setup-dlang@v2
+      - run: dub test
