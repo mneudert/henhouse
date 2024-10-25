@@ -56,8 +56,9 @@ class Translator : hht_t.Translator
     unittest
     {
         Translator trans = new Translator();
-        string original  = "<html><body><h1>HTML</h1><p>Converted text!</p></body></html>";
-        string chicken   = "<html><body><h1>CHICKEN</h1><p>Chicken chicken!</p></body></html>";
+
+        const string original = "<html><body><h1>HTML</h1><p>Converted text!</p></body></html>";
+        const string chicken  = "<html><body><h1>CHICKEN</h1><p>Chicken chicken!</p></body></html>";
 
         assert(chicken == trans.translateText(original));
     }

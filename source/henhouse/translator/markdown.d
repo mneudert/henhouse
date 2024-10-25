@@ -64,8 +64,9 @@ class Translator : hht_t.Translator
     unittest
     {
         Translator trans = new Translator();
-        string original  = "Very Markdown! [uncoverted](link)";
-        string chicken   = "Chicken Chicken! [uncoverted](link)";
+
+        const string original = "Very Markdown! [uncoverted](link)";
+        const string chicken  = "Chicken Chicken! [uncoverted](link)";
 
         assert(chicken == trans.translateText(original));
     }

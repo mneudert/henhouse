@@ -12,14 +12,14 @@ import hht_i = henhouse.translator.itranslator;
  */
 class Translator : hht_i.ITranslator
 {
-    string translateFile(string filename)
+    override string translateFile(string filename)
     {
         string original = cast(string) file.readText(filename);
 
         return translateText(original);
     }
 
-    string translateText(string original)
+    override string translateText(string original)
     {
         char   current;
         string chicken;
@@ -47,8 +47,9 @@ class Translator : hht_i.ITranslator
     unittest
     {
         Translator trans = new Translator();
-        string original  = "Much chicken! So convert!";
-        string chicken   = "Chicken chicken! Chicken chicken!";
+
+        const string original = "Much chicken! So convert!";
+        const string chicken  = "Chicken chicken! Chicken chicken!";
 
         assert(chicken == trans.translateText(original));
     }
