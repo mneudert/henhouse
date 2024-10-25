@@ -20,6 +20,15 @@ jobs:
       - run: yamllint .
         working-directory: .github
 
+  quality_dlang:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dlang-community/setup-dlang@v2
+      - run: dub fetch dscanner
+      - run: dub run dscanner -- lint
+
   test:
     runs-on: ubuntu-24.04
 
