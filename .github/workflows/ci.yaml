@@ -16,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - run: yamllint .
         working-directory: .github
@@ -25,6 +27,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: dlang-community/setup-dlang@v2
       - run: dub fetch dscanner
       - run: dub run dscanner -- lint
@@ -34,5 +38,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: dlang-community/setup-dlang@v2
       - run: dub test
